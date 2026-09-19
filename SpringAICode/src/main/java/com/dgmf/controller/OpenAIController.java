@@ -2,6 +2,8 @@ package com.dgmf.controller;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +19,8 @@ public class OpenAIController {
     }
 
     @GetMapping("/api/{message}")
-    public String getAnswer(@PathVariable String message) {
+    // public String getAnswer(@PathVariable String message) {
+    public ResponseEntity<String> getAnswer(@PathVariable String message) {
         // String response = chatModel.call(message);
         String response = chatClient
                 .prompt(message)
@@ -25,6 +28,7 @@ public class OpenAIController {
                 .content();
 
         // return response;
-        return "With ChatClient : " + response;
+        // return "With ChatClient : " + response;
+        return ResponseEntity.ok(response);
     }
 }
